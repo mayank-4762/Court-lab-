@@ -69,6 +69,7 @@ export type PageView =
   | 'checkout'
   | 'order-confirmation'
   | 'order-tracking'
+  | 'order-history'
   | 'contact';
 
 export interface ShippingAddress {

@@ -106,6 +106,14 @@ export const Footer: React.FC<FooterProps> = ({
               </li>
               <li>
                 <button
+                  onClick={() => onNavigate('order-history')}
+                  className="hover:text-[#ccff00] font-bold text-white transition-colors"
+                >
+                  Order History & Receipts
+                </button>
+              </li>
+              <li>
+                <button
                   onClick={() => onNavigate('contact')}
                   className="hover:text-[#ccff00] transition-colors"
                 >

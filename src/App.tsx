@@ -13,7 +13,9 @@ import { CheckoutPage } from './components/CheckoutPage';
 import { PostPurchaseModal } from './components/PostPurchaseModal';
 import { OrderConfirmation } from './components/OrderConfirmation';
 import { OrderTrackingPage } from './components/OrderTrackingPage';
+import { OrderHistoryPage } from './components/OrderHistoryPage';
 import { ContactPage } from './components/ContactPage';
+import { INITIAL_MOCK_ORDERS } from './data/mockOrders';
 import { FitCalibratorModal } from './components/FitCalibratorModal';
 import { ScienceModal } from './components/ScienceModal';
 import { ShopifyStorefrontSection } from './components/ShopifyStorefrontSection';
@@ -57,6 +59,9 @@ export default function App() {
   const [isScienceOpen, setIsScienceOpen] = useState(false);
   const [isPostPurchaseOpen, setIsPostPurchaseOpen] = useState(false);
   const [completedOrder, setCompletedOrder] = useState<Order | null>(null);
+
+  // Orders Repository State
+  const [orders, setOrders] = useState<Order[]>(INITIAL_MOCK_ORDERS);
 
   // Cart Handlers
   const handleAddToCart = (
@@ -196,8 +201,15 @@ export default function App() {
     };
 
     setCompletedOrder(order);
+    setOrders((prev) => [order, ...prev]);
     setCartItems([]);
     setActivePage('order-confirmation');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleSelectOrderForTracking = (order: Order) => {
+    setCompletedOrder(order);
+    setActivePage('order-tracking');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -306,6 +318,16 @@ export default function App() {
           <OrderTrackingPage
             onNavigate={handleNavigate}
             initialOrder={completedOrder}
+          />
+        )}
+
+        {activePage === 'order-history' && (
+          <OrderHistoryPage
+            orders={orders}
+            onNavigate={handleNavigate}
+            onSelectOrderForTracking={handleSelectOrderForTracking}
+            onAddToCart={handleAddToCart}
+            onSelectProduct={handleSelectProduct}
           />
         )}
 

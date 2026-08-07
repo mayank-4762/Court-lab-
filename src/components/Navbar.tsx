@@ -152,6 +152,14 @@ export const Navbar: React.FC<NavbarProps> = ({
               Track Order
             </button>
             <button
+              onClick={() => onNavigate('order-history')}
+              className={`transition-colors hover:text-white py-1 ${
+                activePage === 'order-history' ? 'text-white border-b-2 border-white font-bold' : 'text-zinc-400'
+              }`}
+            >
+              Order History
+            </button>
+            <button
               onClick={() => onNavigate('contact')}
               className={`transition-colors hover:text-white py-1 ${
                 activePage === 'contact' ? 'text-white border-b-2 border-white font-bold' : 'text-zinc-400'
@@ -317,6 +325,21 @@ export const Navbar: React.FC<NavbarProps> = ({
               }`}
             >
               <span>TRACK ORDER</span>
+              <ArrowUpRight className="w-4 h-4 opacity-70" />
+            </button>
+
+            <button
+              onClick={() => {
+                onNavigate('order-history');
+                setMobileMenuOpen(false);
+              }}
+              className={`flex items-center justify-between w-full text-left px-4 py-3 rounded-xl transition-all font-bold ${
+                activePage === 'order-history'
+                  ? 'bg-[#ccff00] text-black'
+                  : 'bg-white/5 text-zinc-200 hover:bg-white/10'
+              }`}
+            >
+              <span>ORDER HISTORY & LOGS</span>
               <ArrowUpRight className="w-4 h-4 opacity-70" />
             </button>
 
