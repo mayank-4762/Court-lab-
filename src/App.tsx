@@ -19,10 +19,26 @@ import { ScienceModal } from './components/ScienceModal';
 import { ShopifyStorefrontSection } from './components/ShopifyStorefrontSection';
 import { FaqSection } from './components/FaqSection';
 import { CustomerPerspectives } from './components/CustomerPerspectives';
+import { ToastNotificationContainer, ToastItem } from './components/ToastNotification';
 
 export default function App() {
   const [activePage, setActivePage] = useState<PageView>('home');
   const [selectedProduct, setSelectedProduct] = useState<Product>(PRODUCTS[0]);
+
+  // Toast Notification State
+  const [toasts, setToasts] = useState<ToastItem[]>([]);
+
+  const addToast = (toastData: Omit<ToastItem, 'id'>) => {
+    const newToast: ToastItem = {
+      ...toastData,
+      id: `toast-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
+    };
+    setToasts((prev) => [newToast, ...prev].slice(0, 3));
+  };
+
+  const handleDismissToast = (id: string) => {
+    setToasts((prev) => prev.filter((t) => t.id !== id));
+  };
 
   // Cart State (Pre-populated with 1 Pro-Elite Court Tee for instant rich experience)
   const [cartItems, setCartItems] = useState<CartItem[]>([
@@ -73,7 +89,16 @@ export default function App() {
       }
     });
 
-    setIsCartOpen(true);
+    // Display non-intrusive interactive Toast notification instead of opening side drawer
+    addToast({
+      type: 'cart',
+      title: 'ADDED TO BAG',
+      product,
+      selectedSize: size,
+      selectedColorHex: colorHex,
+      selectedColorName: colorObj.name,
+      quantity: qty,
+    });
   };
 
   const handleAddBundleToCart = (
@@ -320,6 +345,18 @@ export default function App() {
       <ScienceModal
         isOpen={isScienceOpen}
         onClose={() => setIsScienceOpen(false)}
+      />
+
+      {/* Global Toast Notification System */}
+      <ToastNotificationContainer
+        toasts={toasts}
+        onDismiss={handleDismissToast}
+        onOpenCart={() => setIsCartOpen(true)}
+        onNavigateCheckout={() => {
+          setIsCartOpen(false);
+          setActivePage('checkout');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
       />
     </MainLayout>
   );
