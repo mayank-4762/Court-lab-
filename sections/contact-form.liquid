@@ -1,0 +1,129 @@
+<div class="court-contact-section" style="background-color: #08080a; min-height: 80vh; padding: 60px 24px; color: #ffffff; font-family: monospace;">
+  <div style="max-width: 900px; margin: 0 auto;">
+    
+    <!-- Page Title Header -->
+    <div style="text-align: center; margin-bottom: 48px;">
+      <div style="display: inline-flex; align-items: center; gap: 8px; background: #121318; border: 1px solid rgba(204,255,0,0.3); padding: 4px 14px; border-radius: 999px; color: #ccff00; font-size: 11px; font-weight: bold; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 14px;">
+        <span>ATHLETE SUPPORT & HQ INQUIRIES</span>
+      </div>
+      <h1 style="font-size: 2.75rem; font-weight: 900; text-transform: uppercase; letter-spacing: -1px; margin: 0 0 12px 0; color: #ffffff;">CONTACT COURT LAB</h1>
+      <p style="color: #a1a1aa; font-family: sans-serif; font-size: 15px; max-width: 550px; margin: 0 auto; line-height: 1.6;">
+        Have a question about your order, sizing calibration, or athlete sponsorship? Connect directly with our performance lab team.
+      </p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px;">
+      
+      <!-- Contact Info Cards -->
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        <div style="background: #121318; border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 24px;">
+          <div style="font-size: 11px; color: #ccff00; text-transform: uppercase; letter-spacing: 1.5px; font-weight: bold; margin-bottom: 8px;">ATHLETE SUPPORT EMAIL</div>
+          <div style="font-size: 16px; font-weight: bold; color: #ffffff; margin-bottom: 4px;">support@courtlab.io</div>
+          <p style="font-family: sans-serif; font-size: 13px; color: #71717a; margin: 0;">24/7 dedicated response within 1 hour for active order tracking & returns.</p>
+        </div>
+
+        <div style="background: #121318; border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 24px;">
+          <div style="font-size: 11px; color: #ccff00; text-transform: uppercase; letter-spacing: 1.5px; font-weight: bold; margin-bottom: 8px;">GLOBAL HEADQUARTERS</div>
+          <div style="font-size: 16px; font-weight: bold; color: #ffffff; margin-bottom: 4px;">Court Lab Performance Hub</div>
+          <p style="font-family: sans-serif; font-size: 13px; color: #71717a; margin: 0;">1100 Congress Ave, Suite 400<br>Austin, TX 78701, United States</p>
+        </div>
+
+        <div style="background: #121318; border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 24px;">
+          <div style="font-size: 11px; color: #ccff00; text-transform: uppercase; letter-spacing: 1.5px; font-weight: bold; margin-bottom: 8px;">TEST GUARANTEE</div>
+          <div style="font-size: 16px; font-weight: bold; color: #ffffff; margin-bottom: 4px;">30-Day Risk-Free Court Test</div>
+          <p style="font-family: sans-serif; font-size: 13px; color: #71717a; margin: 0;">Wear it on court. Play hard. If it doesn't elevate your game, return it for a 100% full refund.</p>
+        </div>
+      </div>
+
+      <!-- Shopify Form -->
+      <div style="background: #121318; border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 32px; box-shadow: 0 20px 40px rgba(0,0,0,0.5);">
+        {% form 'contact' %}
+          {% if form.posted_successfully? %}
+            <div style="background: rgba(16,185,129,0.15); border: 1px solid #10b981; color: #10b981; padding: 16px; border-radius: 12px; margin-bottom: 24px; font-size: 13px;">
+              ✓ Thank you! Your message has been dispatched to Court Lab HQ. We will contact you shortly.
+            </div>
+          {% endif %}
+
+          {% if form.errors %}
+            <div style="background: rgba(239,68,68,0.15); border: 1px solid #ef4444; color: #ef4444; padding: 16px; border-radius: 12px; margin-bottom: 24px; font-size: 13px;">
+              Please check the form inputs and try again.
+            </div>
+          {% endif %}
+
+          <div style="margin-bottom: 20px;">
+            <label style="display: block; font-size: 11px; color: #a1a1aa; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-weight: bold;">
+              YOUR NAME
+            </label>
+            <input
+              type="text"
+              name="contact[name]"
+              id="ContactForm-name"
+              placeholder="e.g. Alex Morgan"
+              required
+              style="width: 100%; background: #09090c; border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; padding: 12px 16px; color: #ffffff; font-family: monospace; font-size: 14px; box-sizing: border-box;"
+            />
+          </div>
+
+          <div style="margin-bottom: 20px;">
+            <label style="display: block; font-size: 11px; color: #a1a1aa; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-weight: bold;">
+              EMAIL ADDRESS
+            </label>
+            <input
+              type="email"
+              name="contact[email]"
+              id="ContactForm-email"
+              placeholder="athlete@domain.com"
+              required
+              style="width: 100%; background: #09090c; border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; padding: 12px 16px; color: #ffffff; font-family: monospace; font-size: 14px; box-sizing: border-box;"
+            />
+          </div>
+
+          <div style="margin-bottom: 20px;">
+            <label style="display: block; font-size: 11px; color: #a1a1aa; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-weight: bold;">
+              ORDER NUMBER (OPTIONAL)
+            </label>
+            <input
+              type="text"
+              name="contact[order_number]"
+              id="ContactForm-order"
+              placeholder="e.g. CL-LAB-849201"
+              style="width: 100%; background: #09090c; border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; padding: 12px 16px; color: #ffffff; font-family: monospace; font-size: 14px; box-sizing: border-box;"
+            />
+          </div>
+
+          <div style="margin-bottom: 24px;">
+            <label style="display: block; font-size: 11px; color: #a1a1aa; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-weight: bold;">
+              MESSAGE / INQUIRY
+            </label>
+            <textarea
+              rows="5"
+              name="contact[body]"
+              id="ContactForm-body"
+              placeholder="How can Court Lab support your performance today?"
+              required
+              style="width: 100%; background: #09090c; border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; padding: 12px 16px; color: #ffffff; font-family: sans-serif; font-size: 14px; box-sizing: border-box; resize: vertical;"
+            ></textarea>
+          </div>
+
+          <button
+            type="submit"
+            style="width: 100%; background: #ccff00; color: #000000; border: none; border-radius: 12px; padding: 16px 20px; font-family: monospace; font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; cursor: pointer; transition: background 0.2s;"
+            onmouseover="this.style.background='#b8e600'"
+            onmouseout="this.style.background='#ccff00'"
+          >
+            DISPATCH MESSAGE
+          </button>
+        {% endform %}
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Contact Form",
+  "settings": []
+}
+{% endschema %}

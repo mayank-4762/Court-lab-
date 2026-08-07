@@ -1,0 +1,20 @@
+{% comment %}
+  Renders a product card for collection grids.
+{% endcomment %}
+<div class="product-card" style="background: #121318; border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 20px;">
+  <a href="{{ product.url }}" style="display: block; aspect-ratio: 1; overflow: hidden; border-radius: 12px; background: #0b0c0e; margin-bottom: 16px;">
+    {% if product.featured_media %}
+      <img src="{{ product.featured_media | image_url: width: 600 }}" alt="{{ product.title | escape }}" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
+    {% else %}
+      <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #52525b; font-family: monospace; font-size: 12px;">COURT LAB APPAREL</div>
+    {% endif %}
+  </a>
+  <div style="font-family: monospace; font-size: 10px; color: #10b981; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">LAB TESTED</div>
+  <h3 style="font-size: 1.125rem; font-weight: 700; color: #ffffff; margin: 0 0 8px 0;">
+    <a href="{{ product.url }}" style="color: #ffffff; text-decoration: none;">{{ product.title }}</a>
+  </h3>
+  <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 16px; margin-top: 16px;">
+    <span style="font-family: monospace; font-size: 1.125rem; font-weight: 700; color: #ffffff;">{{ product.price | money }}</span>
+    <a href="{{ product.url }}" style="background: #ffffff; color: #000000; padding: 8px 16px; border-radius: 8px; font-family: monospace; font-size: 11px; font-weight: bold; text-decoration: none; text-transform: uppercase;">DETAILS</a>
+  </div>
+</div>

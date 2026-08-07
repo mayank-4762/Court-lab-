@@ -1,0 +1,12 @@
+<div style="max-width: 1200px; margin: 0 auto; padding: 40px 20px;">
+  <h1>{{ product.title }}</h1>
+  <p style="font-size: 1.25rem; font-weight: bold;">{{ product.price | money }}</p>
+  <div style="margin-top: 20px;">{{ product.description }}</div>
+</div>
+
+{% schema %}
+{
+  "name": "Main Product",
+  "settings": []
+}
+{% endschema %}

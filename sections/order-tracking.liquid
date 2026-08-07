@@ -1,0 +1,170 @@
+<div class="court-order-tracking" style="background-color: #08080a; min-height: 80vh; padding: 60px 24px; color: #ffffff; font-family: monospace;">
+  <div style="max-width: 900px; margin: 0 auto;">
+    
+    <!-- Header -->
+    <div style="text-align: center; margin-bottom: 40px;">
+      <div style="display: inline-flex; align-items: center; gap: 8px; background: #121318; border: 1px solid rgba(204,255,0,0.3); padding: 4px 12px; border-radius: 999px; color: #ccff00; font-size: 11px; font-weight: bold; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px;">
+        <span>SATELLITE SHIPMENT TELEMETRY</span>
+      </div>
+      <h1 style="font-size: 2.5rem; font-weight: 900; text-transform: uppercase; letter-spacing: -1px; margin: 0 0 12px 0; color: #ffffff;">TRACK YOUR SHIPMENT</h1>
+      <p style="color: #a1a1aa; font-family: sans-serif; font-size: 14px; max-width: 500px; margin: 0 auto; line-height: 1.5;">
+        Input your Court Lab Order ID and email address below to inspect live dispatch status and tracking telemetry.
+      </p>
+    </div>
+
+    <!-- Lookup Form -->
+    <div style="background: #121318; border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 32px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); margin-bottom: 32px;">
+      <form id="tracking-form" onsubmit="event.preventDefault(); searchOrder();" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; align-items: end;">
+        <div>
+          <label style="display: block; font-size: 11px; color: #a1a1aa; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-weight: bold;">
+            ORDER ID / NUMBER
+          </label>
+          <input
+            type="text"
+            id="order-id-input"
+            placeholder="e.g. CL-LAB-849201"
+            value="CL-LAB-849201"
+            required
+            style="width: 100%; background: #09090c; border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; padding: 12px 16px; color: #ffffff; font-family: monospace; font-size: 14px; box-sizing: border-box;"
+          />
+        </div>
+
+        <div>
+          <label style="display: block; font-size: 11px; color: #a1a1aa; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-weight: bold;">
+            EMAIL ADDRESS
+          </label>
+          <input
+            type="email"
+            id="order-email-input"
+            placeholder="athlete@domain.com"
+            value="alex.morgan@courtlab.io"
+            style="width: 100%; background: #09090c; border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; padding: 12px 16px; color: #ffffff; font-family: monospace; font-size: 14px; box-sizing: border-box;"
+          />
+        </div>
+
+        <div>
+          <button
+            type="submit"
+            style="width: 100%; background: #ccff00; color: #000000; border: none; border-radius: 12px; padding: 14px 20px; font-family: monospace; font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: background 0.2s;"
+            onmouseover="this.style.background='#b8e600'"
+            onmouseout="this.style.background='#ccff00'"
+          >
+            INSPECT SHIPMENT
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Output Status Container -->
+    <div id="order-result-card" style="background: #121318; border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 32px; display: block;">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; margin-bottom: 24px; flex-wrap: wrap; gap: 16px;">
+        <div>
+          <div style="font-size: 1.25rem; font-weight: 900; color: #ffffff; letter-spacing: 1px;" id="result-order-id">
+            ORDER #CL-LAB-849201
+          </div>
+          <div style="font-size: 12px; color: #71717a; margin-top: 4px; font-family: sans-serif;">
+            Estimated Delivery: <strong style="color: #ffffff;">Aug 8 - Aug 10, 2026</strong>
+          </div>
+        </div>
+        <div style="background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.4); color: #10b981; padding: 6px 14px; border-radius: 999px; font-size: 12px; font-weight: bold; text-transform: uppercase;" id="result-status-badge">
+          &bull; IN DEPLOYMENT
+        </div>
+      </div>
+
+      <!-- Step Progress Header -->
+      <div style="background: #09090c; border: 1px solid rgba(255,255,255,0.08); padding: 16px 20px; border-radius: 12px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+        <div>
+          <span style="font-size: 11px; color: #a1a1aa; font-weight: bold; text-transform: uppercase;">SHIPMENT DISPATCH PROGRESS:</span>
+          <span id="progress-percentage-label" style="font-size: 14px; color: #ccff00; font-weight: 900; margin-left: 8px;">75% COMPLETED</span>
+        </div>
+        
+        <!-- Status Switcher for Testing -->
+        <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+          <button type="button" onclick="setLiquidStatus(0)" style="background: #181a22; color: #ffffff; border: 1px solid rgba(255,255,255,0.15); padding: 4px 10px; border-radius: 6px; font-family: monospace; font-size: 10px; cursor: pointer;">Processing</button>
+          <button type="button" onclick="setLiquidStatus(1)" style="background: #181a22; color: #ffffff; border: 1px solid rgba(255,255,255,0.15); padding: 4px 10px; border-radius: 6px; font-family: monospace; font-size: 10px; cursor: pointer;">Shipped</button>
+          <button type="button" onclick="setLiquidStatus(2)" style="background: #ccff00; color: #000000; border: none; font-weight: bold; padding: 4px 10px; border-radius: 6px; font-family: monospace; font-size: 10px; cursor: pointer;">In-Transit</button>
+          <button type="button" onclick="setLiquidStatus(3)" style="background: #181a22; color: #ffffff; border: 1px solid rgba(255,255,255,0.15); padding: 4px 10px; border-radius: 6px; font-family: monospace; font-size: 10px; cursor: pointer;">Out for Delivery</button>
+          <button type="button" onclick="setLiquidStatus(4)" style="background: #181a22; color: #ffffff; border: 1px solid rgba(255,255,255,0.15); padding: 4px 10px; border-radius: 6px; font-family: monospace; font-size: 10px; cursor: pointer;">Delivered</button>
+        </div>
+      </div>
+
+      <!-- Tracking Milestones -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; text-align: center; margin-bottom: 32px;">
+        <div id="m-step-0" style="background: #14161c; border: 1px solid #ccff00; padding: 16px; border-radius: 12px;">
+          <div style="color: #ccff00; font-size: 16px; font-weight: 900;">01</div>
+          <div style="font-size: 11px; color: #ffffff; font-weight: bold; margin-top: 4px;">PROCESSING</div>
+          <div style="font-size: 10px; color: #ccff00; margin-top: 2px;">Order Confirmed</div>
+        </div>
+        <div id="m-step-1" style="background: #14161c; border: 1px solid #ccff00; padding: 16px; border-radius: 12px;">
+          <div style="color: #ccff00; font-size: 16px; font-weight: 900;">02</div>
+          <div style="font-size: 11px; color: #ffffff; font-weight: bold; margin-top: 4px;">SHIPPED</div>
+          <div style="font-size: 10px; color: #ccff00; margin-top: 2px;">Quality Checked</div>
+        </div>
+        <div id="m-step-2" style="background: #14161c; border: 1px solid #ccff00; padding: 16px; border-radius: 12px; box-shadow: 0 0 15px rgba(204,255,0,0.2);">
+          <div style="color: #ccff00; font-size: 16px; font-weight: 900;">03</div>
+          <div style="font-size: 11px; color: #ccff00; font-weight: bold; margin-top: 4px;">IN-TRANSIT</div>
+          <div style="font-size: 10px; color: #a1a1aa; margin-top: 2px;">Logistics Hub</div>
+        </div>
+        <div id="m-step-3" style="background: #09090c; border: 1px solid rgba(255,255,255,0.08); padding: 16px; border-radius: 12px; opacity: 0.5;">
+          <div style="color: #52525b; font-size: 16px; font-weight: 900;">04</div>
+          <div style="font-size: 11px; color: #a1a1aa; font-weight: bold; margin-top: 4px;">LOCAL DELIVERY</div>
+          <div style="font-size: 10px; color: #52525b; margin-top: 2px;">Courier Unit</div>
+        </div>
+        <div id="m-step-4" style="background: #09090c; border: 1px solid rgba(255,255,255,0.08); padding: 16px; border-radius: 12px; opacity: 0.5;">
+          <div style="color: #52525b; font-size: 16px; font-weight: 900;">05</div>
+          <div style="font-size: 11px; color: #a1a1aa; font-weight: bold; margin-top: 4px;">DELIVERED</div>
+          <div style="font-size: 10px; color: #52525b; margin-top: 2px;">Destination</div>
+        </div>
+      </div>
+
+      <div style="background: #09090c; border: 1px solid rgba(255,255,255,0.08); padding: 20px; border-radius: 12px; font-size: 12px; line-height: 1.6; color: #a1a1aa;">
+        <div style="color: #ffffff; font-weight: bold; margin-bottom: 8px;">CARRIER TELEMETRY LOG</div>
+        <div>&bull; <span style="color: #ccff00;">07:30 AM Today:</span> Arrived at Austin Regional Courier Hub</div>
+        <div>&bull; 08:15 PM Yesterday: Departed Airport Sorting Facility</div>
+        <div>&bull; 02:30 PM Aug 5: Order Calibrated at Court Lab Austin HQ</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function searchOrder() {
+    const idInput = document.getElementById('order-id-input').value.trim().toUpperCase();
+    const resultCard = document.getElementById('order-result-card');
+    const titleEl = document.getElementById('result-order-id');
+    if (idInput) {
+      titleEl.innerText = 'ORDER #' + idInput;
+      resultCard.style.display = 'block';
+    }
+  }
+
+  function setLiquidStatus(activeIndex) {
+    const pcts = [20, 40, 60, 80, 100];
+    const statuses = ['PROCESSING', 'SHIPPED', 'IN-TRANSIT', 'OUT FOR DELIVERY', 'DELIVERED'];
+    document.getElementById('progress-percentage-label').innerText = pcts[activeIndex] + '% COMPLETED (' + statuses[activeIndex] + ')';
+    document.getElementById('result-status-badge').innerText = '• ' + statuses[activeIndex];
+
+    for (let i = 0; i < 5; i++) {
+      const el = document.getElementById('m-step-' + i);
+      if (el) {
+        if (i <= activeIndex) {
+          el.style.background = '#14161c';
+          el.style.border = '1px solid #ccff00';
+          el.style.opacity = '1';
+        } else {
+          el.style.background = '#09090c';
+          el.style.border = '1px solid rgba(255,255,255,0.08)';
+          el.style.opacity = '0.5';
+        }
+      }
+    }
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Order Tracking",
+  "settings": []
+}
+{% endschema %}

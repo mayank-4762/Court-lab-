@@ -1,0 +1,36 @@
+<header class="court-header" style="background-color: #0b0c0e; border-bottom: 1px solid rgba(255, 255, 255, 0.1); sticky: top: 0; z-index: 50;">
+  <div style="max-width: 1280px; margin: 0 auto; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between;">
+    <!-- Logo -->
+    <a href="{{ routes.root_url }}" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #ffffff;">
+      <div style="width: 32px; height: 32px; background: #ccff00; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 900; color: #000000; font-size: 16px; font-family: monospace;">CL</div>
+      <span style="font-family: monospace; font-size: 18px; font-weight: 800; letter-spacing: 2px;">COURT<span style="color: #ccff00;">LAB</span></span>
+    </a>
+
+    <!-- Navigation Links -->
+    <nav style="display: flex; gap: 24px; align-items: center;">
+      {% for link in linklists.main-menu.links %}
+        <a href="{{ link.url }}" style="color: #a1a1aa; text-decoration: none; font-family: monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; transition: color 0.2s;" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#a1a1aa'">
+          {{ link.title }}
+        </a>
+      {% else %}
+        <a href="{{ routes.all_products_collection_url }}" style="color: #a1a1aa; text-decoration: none; font-family: monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 1px;">SHOP CATALOG</a>
+        <a href="/pages/order-tracking" style="color: #ccff00; text-decoration: none; font-family: monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; font-weight: bold;">TRACK ORDER</a>
+        <a href="/pages/contact" style="color: #a1a1aa; text-decoration: none; font-family: monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 1px;">CONTACT</a>
+        <a href="/pages/about" style="color: #a1a1aa; text-decoration: none; font-family: monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 1px;">LAB SCIENCE</a>
+      {% endfor %}
+    </nav>
+
+    <!-- Cart Button -->
+    <a href="{{ routes.cart_url }}" style="display: flex; align-items: center; gap: 8px; background: #14161c; border: 1px solid rgba(255, 255, 255, 0.15); padding: 8px 16px; border-radius: 10px; color: #ffffff; text-decoration: none; font-family: monospace; font-size: 12px; font-weight: bold;">
+      <span>CART</span>
+      <span style="background: #ccff00; color: #000000; border-radius: 9999px; padding: 2px 8px; font-size: 11px;">{{ cart.item_count }}</span>
+    </a>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": []
+}
+{% endschema %}

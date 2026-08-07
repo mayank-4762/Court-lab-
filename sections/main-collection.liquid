@@ -1,0 +1,18 @@
+<div style="max-width: 1200px; margin: 0 auto; padding: 40px 20px;">
+  <h1>{{ collection.title }}</h1>
+  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; margin-top: 24px;">
+    {% for product in collection.products %}
+      <div style="background: #121318; border: 1px solid rgba(255,255,255,0.1); padding: 20px; border-radius: 12px;">
+        <h3>{{ product.title }}</h3>
+        <p style="font-weight: bold;">{{ product.price | money }}</p>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Main Collection",
+  "settings": []
+}
+{% endschema %}

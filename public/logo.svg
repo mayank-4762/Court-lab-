@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 280" width="100%" height="100%">
+  <rect width="600" height="280" fill="#000000"/>
+  
+  <!-- CL Emblem Monogram -->
+  <g transform="translate(300, 70)">
+    <!-- C Shape (White) -->
+    <path d="M -55 -40 C -95 -40 -115 -15 -115 15 C -115 45 -95 70 -55 70 L 15 70 L 15 50 L -50 50 C -75 50 -90 35 -90 15 C -90 -5 -75 -20 -50 -20 L 15 -20 L 15 -40 Z" fill="#FFFFFF"/>
+    
+    <!-- Slanted L Shape (Neon Green #ccff00) -->
+    <path d="M -15 25 L 10 -35 L 35 -35 L 5 25 L 85 25 L 85 48 L -15 48 Z" fill="#CCFF00"/>
+  </g>
+
+  <!-- COURT LAB Wordmark -->
+  <g transform="translate(300, 185)" text-anchor="middle" font-family="'Plus Jakarta Sans', 'Arial Black', sans-serif" font-weight="900" font-size="44" letter-spacing="8">
+    <text x="-150" y="0" text-anchor="start">
+      <tspan fill="#FFFFFF">COURT</tspan>
+      <tspan dx="15" fill="#CCFF00">LAB</tspan>
+    </text>
+  </g>
+
+  <!-- Tagline bounded by lines -->
+  <g transform="translate(300, 230)">
+    <!-- Left Green Accent Line -->
+    <line x1="-240" y1="-5" x2="-180" y2="-5" stroke="#CCFF00" stroke-width="2.5" stroke-linecap="round"/>
+    
+    <!-- Tagline Text -->
+    <text x="0" y="0" fill="#FFFFFF" text-anchor="middle" font-family="'Space Mono', 'Courier New', monospace" font-size="14" font-weight="800" letter-spacing="6">
+      PERFORMANCE ON EVERY POINT
+    </text>
+    
+    <!-- Right Green Accent Line -->
+    <line x1="180" y1="-5" x2="240" y2="-5" stroke="#CCFF00" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+</svg>

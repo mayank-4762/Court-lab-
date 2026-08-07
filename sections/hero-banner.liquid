@@ -1,0 +1,91 @@
+<div style="background: #0b0c0e; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding: 60px 24px 80px; position: relative; overflow: hidden;">
+  <div style="max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 48px; align-items: center;">
+    
+    <div style="text-align: left; max-width: 800px;">
+      <!-- Tech Badge -->
+      <div style="display: inline-flex; align-items: center; gap: 8px; background: #14161c; border: 1px solid rgba(255,255,255,0.1); padding: 6px 16px; border-radius: 9999px; font-family: monospace; font-size: 11px; color: #d4d4d8; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 24px;">
+        <span style="width: 8px; height: 8px; border-radius: 50%; background: #10b981;"></span>
+        <span>{{ section.settings.badge_text }}</span>
+      </div>
+
+      <!-- Heading -->
+      <h1 style="font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; font-family: system-ui, sans-serif; line-height: 1.1; color: #ffffff; text-transform: uppercase; letter-spacing: -1px; margin: 0 0 20px 0;">
+        {{ section.settings.title }}
+      </h1>
+
+      <!-- Subtitle -->
+      <p style="font-size: 1.125rem; color: #a1a1aa; line-height: 1.6; max-width: 640px; margin: 0 0 32px 0;">
+        {{ section.settings.subtitle }}
+      </p>
+
+      <!-- Stats Grid -->
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; max-width: 480px; font-family: monospace; margin-bottom: 36px;">
+        <div style="background: #121318; border: 1px solid rgba(255,255,255,0.1); padding: 14px; border-radius: 12px;">
+          <div style="color: #71717a; font-size: 10px; text-transform: uppercase;">AIRFLOW DRAG</div>
+          <div style="color: #ffffff; font-weight: bold; font-size: 18px; margin-top: 2px;">0.18 Cd</div>
+          <div style="color: #10b981; font-size: 10px; margin-top: 2px;">-14% Drag</div>
+        </div>
+        <div style="background: #121318; border: 1px solid rgba(255,255,255,0.1); padding: 14px; border-radius: 12px;">
+          <div style="color: #71717a; font-size: 10px; text-transform: uppercase;">THERMAL COOLING</div>
+          <div style="color: #ffffff; font-weight: bold; font-size: 18px; margin-top: 2px;">-3.2°C</div>
+          <div style="color: #a1a1aa; font-size: 10px; margin-top: 2px;">Active Vapor</div>
+        </div>
+        <div style="background: #121318; border: 1px solid rgba(255,255,255,0.1); padding: 14px; border-radius: 12px;">
+          <div style="color: #71717a; font-size: 10px; text-transform: uppercase;">KINETIC FLEX</div>
+          <div style="color: #ffffff; font-weight: bold; font-size: 18px; margin-top: 2px;">4-WAY</div>
+          <div style="color: #ccff00; font-size: 10px; margin-top: 2px;">Poly-Spandex</div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+        <a href="{{ section.settings.primary_button_link }}" style="display: inline-flex; align-items: center; justify-content: center; background: #ffffff; color: #000000; padding: 16px 32px; border-radius: 12px; font-family: monospace; font-size: 12px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; text-decoration: none;">
+          {{ section.settings.primary_button_label }} &rarr;
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Hero Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Text",
+      "default": "CALIBRATED COURT GEAR • 2026 EDITION"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "AERODYNAMIC COURT WEAR ENGINEERED FOR SPEED"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Court Lab fuses 4-way kinetic stretch, active cooling micro-vents, and zero-drag ergonomics for high-velocity pickleball play."
+    },
+    {
+      "type": "text",
+      "id": "primary_button_label",
+      "label": "Primary Button Text",
+      "default": "SHOP COLLECTION"
+    },
+    {
+      "type": "url",
+      "id": "primary_button_link",
+      "label": "Primary Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Banner"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,190 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --font-display: 'Syne', sans-serif;
+    --accent-silver: #e2e8f0;
+    --accent-champagne: #d4e3d5;
+  }
+  
+  body {
+    font-family: var(--font-sans);
+    background-color: #0b0c0e;
+    color: #f1f5f9;
+  }
+}
+
+.font-mono {
+  font-family: var(--font-mono), monospace !important;
+}
+
+.font-display {
+  font-family: var(--font-display), sans-serif !important;
+}
+
+/* Subtle Premium Accents */
+.shadow-premium-glow {
+  box-shadow: 0 8px 32px rgba(255, 255, 255, 0.03);
+}
+
+.shadow-card-elevated {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* Lab Grid Background */
+.bg-lab-grid {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+}
+
+.bg-lab-dots {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0b0c0e;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
+}
+
+/* Performance Apparel CSS Motion Keyframes */
+@keyframes apparelFloat {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-8px) scale(1.015);
+  }
+}
+
+@keyframes apparelFloatSlow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(0.5deg);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.25;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes techScan {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.8;
+  }
+  85% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(350%);
+    opacity: 0;
+  }
+}
+
+@keyframes pageEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-apparel-float {
+  animation: apparelFloat 6s ease-in-out infinite;
+}
+
+.animate-apparel-float-slow {
+  animation: apparelFloatSlow 8s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 4s ease-in-out infinite;
+}
+
+.animate-tech-scan {
+  animation: techScan 4s ease-in-out infinite;
+}
+
+.animate-page-entrance {
+  animation: pageEntrance 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Shopify Web Components Custom Styling */
+shopify-variant-selector::part(form) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+shopify-variant-selector::part(label) {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #a1a1aa;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+shopify-variant-selector::part(radio) {
+  background: #181922;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #f4f4f5;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+shopify-variant-selector::part(radio-selected) {
+  background: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+  font-weight: bold;
+}
+
+shopify-cart::part(dialog) {
+  background-color: #121318;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+}
+
+shopify-cart::part(secondary-button) {
+  fill: #ffffff;
+}
+
+

@@ -1,0 +1,49 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-banner",
+      "settings": {
+        "badge_text": "CALIBRATED COURT GEAR • 2026 EDITION",
+        "title": "AERODYNAMIC COURT WEAR ENGINEERED FOR SPEED",
+        "subtitle": "Court Lab fuses 4-way kinetic stretch, active cooling micro-vents, and zero-drag ergonomics for high-velocity pickleball play.",
+        "primary_button_label": "SHOP COLLECTION",
+        "primary_button_link": "/collections/all",
+        "secondary_button_label": "FIT CALIBRATOR",
+        "secondary_button_link": "#"
+      }
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "ELITE COURT APPAREL",
+        "subtitle": "Laboratory tested and competition calibrated.",
+        "products_to_show": 6
+      }
+    },
+    "anatomy": {
+      "type": "anatomy-section",
+      "settings": {
+        "heading": "ANATOMY OF COURT APPAREL",
+        "subheading": "Biomechanical engineering optimized for court movement."
+      }
+    },
+    "customer_perspectives": {
+      "type": "customer-perspectives",
+      "settings": {}
+    },
+    "faq": {
+      "type": "faq-section",
+      "settings": {
+        "title": "FREQUENTLY ASKED QUESTIONS",
+        "subtitle": "Everything you need to know about our lab-tested court textiles, sizing, and orders."
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "featured_collection",
+    "anatomy",
+    "customer_perspectives",
+    "faq"
+  ]
+}

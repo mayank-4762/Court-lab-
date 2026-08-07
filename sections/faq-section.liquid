@@ -1,0 +1,88 @@
+<div style="background: #0b0c0e; border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1); padding: 80px 24px;">
+  <div style="max-width: 1280px; margin: 0 auto;">
+    
+    <!-- Section Header -->
+    <div style="text-align: center; max-width: 640px; margin: 0 auto 48px;">
+      <div style="font-family: monospace; font-size: 11px; color: #ccff00; text-transform: uppercase; letter-spacing: 2px;">KNOWLEDGE BASE</div>
+      <h2 style="font-size: 2.25rem; font-weight: 800; color: #ffffff; text-transform: uppercase; margin: 8px 0;">{{ section.settings.title }}</h2>
+      <p style="color: #a1a1aa; font-size: 1rem; margin: 0;">{{ section.settings.subtitle }}</p>
+    </div>
+
+    <!-- FAQ Accordion Container -->
+    <div style="max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px;">
+      {% for block in section.blocks %}
+        <details style="background: #121318; border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 20px 24px; cursor: pointer;">
+          <summary style="font-size: 1.125rem; font-weight: 700; color: #ffffff; font-family: system-ui, sans-serif; list-style: none; display: flex; align-items: center; justify-content: space-between;">
+            <span style="display: flex; align-items: center; gap: 12px;">
+              <span style="width: 8px; height: 8px; border-radius: 50%; background-color: #ccff00; display: inline-block;"></span>
+              {{ block.settings.question }}
+            </span>
+            <span style="color: #a1a1aa; font-family: monospace; font-size: 14px;">+</span>
+          </summary>
+          <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.08); color: #a1a1aa; line-height: 1.6; font-size: 0.95rem;">
+            {{ block.settings.answer }}
+          </div>
+        </details>
+      {% else %}
+        <details style="background: #121318; border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 20px 24px;" open>
+          <summary style="font-size: 1.125rem; font-weight: 700; color: #ffffff; list-style: none;">What makes Court Lab textiles different from standard sportswear?</summary>
+          <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.08); color: #a1a1aa; line-height: 1.6;">
+            Court Lab apparel is engineered specifically for pickleball biomechanics with 4-way kinetic stretch matrix, laser-cut micro-venting, and anti-drag surface treatment.
+          </div>
+        </details>
+        <details style="background: #121318; border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 20px 24px;">
+          <summary style="font-size: 1.125rem; font-weight: 700; color: #ffffff; list-style: none;">How does the 30-Day Court Guarantee work?</summary>
+          <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.08); color: #a1a1aa; line-height: 1.6;">
+            Test the gear on court for 30 days. If it doesn't improve your movement and comfort, return it hassle-free for a full refund.
+          </div>
+        </details>
+      {% endfor %}
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "FAQ Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "FREQUENTLY ASKED QUESTIONS"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subheading",
+      "default": "Everything you need to know about our lab-tested court textiles and orders."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "How does Court Lab apparel enhance performance?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer",
+          "default": "Our textiles incorporate 4-way stretch, laser-venting, and silver-ion antimicrobial thread."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Section"
+    }
+  ]
+}
+{% endschema %}

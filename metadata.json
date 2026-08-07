@@ -1,0 +1,6 @@
+{
+  "name": "Court Lab – High-Performance Pickleball Apparel",
+  "description": "Scientific pickleball apparel engineered with aerodynamic textiles and 3D interactive gear calibration.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
