@@ -27,29 +27,49 @@ export const Navbar: React.FC<NavbarProps> = ({
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [isInlineFocused, setIsInlineFocused] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const inlineSearchInputRef = useRef<HTMLInputElement>(null);
+  const searchContainerRef = useRef<HTMLDivElement>(null);
 
   // Keyboard shortcut (Cmd/Ctrl + K) to open search
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
-        setSearchOpen((prev) => !prev);
-      } else if (e.key === 'Escape' && searchOpen) {
+        if (inlineSearchInputRef.current) {
+          inlineSearchInputRef.current.focus();
+          setIsInlineFocused(true);
+        } else {
+          setSearchOpen(true);
+        }
+      } else if (e.key === 'Escape') {
         setSearchOpen(false);
+        setIsInlineFocused(false);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [searchOpen]);
+  }, []);
 
-  // Focus input on open
+  // Close real-time dropdown on click outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        searchContainerRef.current &&
+        !searchContainerRef.current.contains(e.target as Node)
+      ) {
+        setIsInlineFocused(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // Focus modal input on open
   useEffect(() => {
     if (searchOpen) {
       setTimeout(() => searchInputRef.current?.focus(), 50);
-    } else {
-      setSearchQuery('');
-      setSelectedCategory('all');
     }
   }, [searchOpen]);
 
@@ -82,142 +102,85 @@ export const Navbar: React.FC<NavbarProps> = ({
       onNavigate('product-detail');
     }
     setSearchOpen(false);
+    setIsInlineFocused(false);
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-[#0b0c0e]/95 backdrop-blur-xl border-b border-white/10">
-      {/* Top Refined Announcement Bar */}
-      <div className="bg-[#14161c] text-zinc-300 py-1.5 px-4 text-[11px] font-mono font-medium tracking-widest uppercase flex items-center justify-between border-b border-white/5">
-        <div className="flex items-center gap-2 mx-auto">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-          <span>COMPLIMENTARY EXPRESS SHIPPING OVER $150 &bull; 30-DAY COURT TEST GUARANTEE</span>
-        </div>
-      </div>
-
+    <header className="sticky top-0 z-50 bg-[#08080a]/95 backdrop-blur-xl border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo */}
           <button
             onClick={() => {
               onNavigate('home');
               setMobileMenuOpen(false);
             }}
-            className="group shrink-0 text-left focus:outline-none"
+            className="flex items-center gap-2.5 text-left focus:outline-none group"
             aria-label="Court Lab Home"
           >
-            <Logo size="md" variant="horizontal" showTagline={true} />
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded bg-[#ccff00] text-black font-mono font-black text-xs flex items-center justify-center shadow-md tracking-tighter">
+              CL
+            </div>
+            <span className="font-display font-black text-base sm:text-xl text-white tracking-wider uppercase group-hover:text-[#ccff00] transition-colors">
+              COURT<span className="text-[#ccff00]">LAB</span>
+            </span>
           </button>
 
           {/* Desktop Nav Links */}
-          <nav className="hidden md:flex gap-6 lg:gap-8 text-xs font-mono uppercase tracking-[0.18em] text-zinc-400">
+          <nav className="hidden md:flex items-center gap-8 text-xs font-mono uppercase tracking-[0.2em] text-zinc-400">
             <button
               onClick={() => onNavigate('home')}
               className={`transition-colors hover:text-white py-1 ${
-                activePage === 'home' ? 'text-white border-b-2 border-white font-bold' : 'text-zinc-400'
+                activePage === 'home' ? 'text-white font-bold border-b-2 border-[#ccff00]' : ''
               }`}
             >
-              Collection
+              HOME
             </button>
             <button
               onClick={() => onNavigate('catalog')}
               className={`transition-colors hover:text-white py-1 ${
-                activePage === 'catalog' ? 'text-white border-b-2 border-white font-bold' : 'text-zinc-400'
+                activePage === 'catalog' ? 'text-white font-bold border-b-2 border-[#ccff00]' : ''
               }`}
             >
-              Shop All
-            </button>
-            <button
-              onClick={() => onNavigate('anatomy')}
-              className={`flex items-center gap-1.5 transition-colors hover:text-white py-1 ${
-                activePage === 'anatomy' ? 'text-white border-b-2 border-white font-bold' : 'text-zinc-400'
-              }`}
-            >
-              Anatomy 3D
-            </button>
-            <button
-              onClick={() => onNavigate('shopify')}
-              className={`flex items-center gap-1.5 transition-colors hover:text-white py-1 ${
-                activePage === 'shopify' ? 'text-white border-b-2 border-white font-bold' : 'text-zinc-400'
-              }`}
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              Shopify Store
-            </button>
-            <button
-              onClick={() => onNavigate('order-tracking')}
-              className={`transition-colors hover:text-white py-1 ${
-                activePage === 'order-tracking' ? 'text-white border-b-2 border-white font-bold' : 'text-zinc-400'
-              }`}
-            >
-              Track Order
-            </button>
-            <button
-              onClick={() => onNavigate('order-history')}
-              className={`transition-colors hover:text-white py-1 ${
-                activePage === 'order-history' ? 'text-white border-b-2 border-white font-bold' : 'text-zinc-400'
-              }`}
-            >
-              Order History
+              CATALOG
             </button>
             <button
               onClick={() => onNavigate('contact')}
               className={`transition-colors hover:text-white py-1 ${
-                activePage === 'contact' ? 'text-white border-b-2 border-white font-bold' : 'text-zinc-400'
+                activePage === 'contact' ? 'text-white font-bold border-b-2 border-[#ccff00]' : ''
               }`}
             >
-              Contact
-            </button>
-            <button
-              onClick={() => onNavigate('about')}
-              className={`transition-colors hover:text-white py-1 ${
-                activePage === 'about' ? 'text-white border-b-2 border-white font-bold' : 'text-zinc-400'
-              }`}
-            >
-              Mission
+              CONTACT
             </button>
           </nav>
 
-          {/* Actions */}
-          <div className="flex items-center gap-2 sm:gap-3.5 shrink-0">
-            {/* Quick Search Header Component */}
+          {/* Right Action Items: Cart Pill & Search & Mobile Menu toggle */}
+          <div className="flex items-center gap-3">
             <button
               onClick={() => setSearchOpen(true)}
-              className="flex items-center gap-2 bg-[#14161f] border border-white/15 hover:border-[#ccff00]/50 text-zinc-300 p-2 sm:px-3 sm:py-2 rounded-xl text-xs font-mono transition-all hover:bg-white/5"
-              title="Search Catalog (⌘K)"
+              className="p-2 text-zinc-400 hover:text-white transition-colors"
+              title="Search Catalog"
             >
-              <Search className="w-4 h-4 text-[#ccff00] shrink-0" />
-              <span className="hidden sm:inline text-zinc-400">Search products...</span>
-              <kbd className="hidden md:inline-block bg-white/10 border border-white/15 px-1.5 py-0.5 rounded text-[10px] text-zinc-400">
-                ⌘K
-              </kbd>
+              <Search className="w-5 h-5" />
             </button>
 
-            {/* Cart Button */}
+            {/* Cart Pill Badge - Exact match to reference screenshot */}
             <button
               onClick={onOpenCart}
-              className="relative flex items-center gap-1.5 sm:gap-2 bg-white hover:bg-[#ccff00] text-black px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl font-mono text-xs font-bold transition-all shadow-md shrink-0"
+              className="flex items-center gap-2 bg-[#121318] hover:bg-[#1c1e26] text-white border border-white/20 px-3.5 py-1.5 rounded-full font-mono text-xs uppercase font-bold tracking-wider transition-all shadow-md group cursor-pointer"
             >
-              <ShoppingBag className="w-4 h-4 text-black shrink-0" />
-              <span className="hidden sm:inline">BAG</span>
-              {cartCount > 0 && (
-                <span className="bg-black text-white font-black w-5 h-5 rounded-full flex items-center justify-center text-[10px]">
-                  {cartCount}
-                </span>
-              )}
+              <span>CART</span>
+              <span className="bg-[#ccff00] text-black text-[10px] font-black w-4 h-4 rounded-full flex items-center justify-center">
+                {cartCount}
+              </span>
             </button>
 
-            {/* Mobile Menu Toggle - Prominent 3-line icon button */}
+            {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden flex items-center justify-center p-2.5 bg-white/10 hover:bg-white/20 active:bg-[#ccff00] active:text-black border border-white/20 rounded-xl text-white transition-all shrink-0 focus:outline-none focus:ring-2 focus:ring-[#ccff00]"
-              aria-label="Toggle navigation menu"
-              title="Toggle Navigation Menu"
+              className="md:hidden p-2 text-zinc-400 hover:text-white transition-colors"
             >
-              {mobileMenuOpen ? (
-                <X className="w-5 h-5 text-white" />
-              ) : (
-                <Menu className="w-5 h-5 text-white" />
-              )}
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>

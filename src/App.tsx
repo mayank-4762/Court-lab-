@@ -230,24 +230,14 @@ export default function App() {
     >
       <div key={activePage} className="animate-page-entrance min-h-screen">
         {activePage === 'home' && (
-          <>
-            <HeroSection
-              onNavigate={handleNavigate}
-              onOpenCalibrator={() => setIsCalibratorOpen(true)}
-            />
-            <AnatomySection
-              onNavigate={handleNavigate}
-              onOpenScience={() => setIsScienceOpen(true)}
-            />
+          <div className="pt-2">
+            <ShopifyStorefrontSection />
             <CollectionGrid
               onSelectProduct={handleSelectProduct}
               onAddToCart={handleAddToCart}
               onNavigate={handleNavigate}
             />
-            <CustomerPerspectives />
-            <FaqSection />
-            <ShopifyStorefrontSection />
-          </>
+          </div>
         )}
 
         {activePage === 'shopify' && (
@@ -288,6 +278,7 @@ export default function App() {
             onAddBundleToCart={handleAddBundleToCart}
             onOpenCalibrator={() => setIsCalibratorOpen(true)}
             onNavigate={handleNavigate}
+            onSelectProduct={handleSelectProduct}
           />
         )}
 
